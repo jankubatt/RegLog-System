@@ -1,8 +1,5 @@
 <?php
-	session_start();
-
-	$cookie_name = "login";
-	setcookie($cookie_name, time() + 3600, "/");
+	session_start();	
 ?>
 
 <!DOCTYPE html>
@@ -25,36 +22,30 @@
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a href="indexLogin.php"  class="nav-link">Login</a>
+						<a href="indexLogin.php" class="nav-link">Login</a>
 					</li>
 					<li class="nav-item">
-						<a href='indexRegister.php' class='nav-link'>Register</a>
-					</li>		
+						<a href="indexRegister.php" class="nav-link">Register</a>
+					</li>			
 				</ul>
 			</div>
 		</nav>
-
-		<div class="text-danger container-fluid"><?php echo $_SESSION["error"]; ?></div>
-
-		<form action="script/register.php" method="POST">
+        
+        <br>
+        <div class="container-fluid"><h1>Email with verification link was sent to your email!</h1></div>
+        <br>
+        
+		<form action="script/login.php" method="POST">
 			<div class="container-fluid">
 				<div class="form-group">
 			    	<label>Username</label>
-			    	<input type="text" class="form-control" name="username" placeholder="Username">
-			  	</div>
-				<div class="form-group">
-			    	<label>Email</label>
-			    	<input type="email" class="form-control" name="email" placeholder="Email">
+			    	<input type="text" class="form-control" name="usernameLogin" placeholder="Username">
 			  	</div>
 			  	<div class="form-group">
 			    	<label>Password</label>
-			    	<input type="password" class="form-control" name="pwd" placeholder="Password">
+			    	<input type="password" class="form-control" name="pwdLogin" placeholder="Password">
 			 	</div>
-			 	<div class="form-group">
-			    	<label>Confirm Password</label>
-			    	<input type="password" class="form-control"  name="pwdCfm" placeholder="Confirm Password">
-			 	</div>
-			  	<button type="submit" class="btn btn-primary" name="submit1">Register</button>
+			  	<button type="submit" class="btn btn-primary" name=""submit2>Login</button>
 			</div>
 		</form>
 	</body>

@@ -7,9 +7,12 @@
 
 	$username = $_POST['usernameLogin'];
 	$password = $_POST['pwdLogin'];
+	$passwordCheck = "";
 
 	$_SESSION["usr"] = $username;
-
+    $verified = 0;
+    
+    
 	// Create connection
 	$conn = mysqli_connect($servername, $dbUsername, $dbPassword, $dbname);
 
@@ -30,20 +33,8 @@
 			$passwordCheck = $row['pwd'];
 		}
 	}
-
-	if ($password == "" || $passwordCheck == "" || $username == "") {
-		header("Location: ../badIndexLogin.php");
-	}
-
-	else if (password_verify($password, $passwordCheck)) {
-		header("Location: ../mainpage.php");
-	}
-
-	else {
-		header("Location: ../badIndexLogin.php");
-	}
-
-	$sql = "SELECT verified FROM users WHERE username = '$username'";
+    
+    $sql = "SELECT verified FROM users WHERE username = '$username'";
 	
 	$result = mysqli_query($conn, $sql);
 	$resultCheck = mysqli_num_rows($result);
@@ -53,13 +44,41 @@
 			$verified = $row['verified'];
 		}
 	}
-
-	if ($verified == 1) {
-		header("Location: ../mainpage.php");
-	}
-
-	else {
+    
+    if ($username == "" && $password == "") {
+	    $_SESSION["error"] = "Invalid username and password";
 		header("Location: ../badIndexLogin.php");
+		exit();
 	}
+    
+    if ($username == "") {
+	    $_SESSION["error"] = "Invalid username";
+		header("Location: ../badIndexLogin.php");
+		exit();
+	}
+    
+	if ($password == "" || $passwordCheck == "") {
+	    $_SESSION["error"] = "Invalid password";
+		header("Location: ../badIndexLogin.php");
+		exit();
+	}
+	
+	if ($verified == 0) {
+	    $_SESSION["error"] = "Not verified";
+		header("Location: ../badIndexLogin.php");
+		exit();
+	}
+	
+	if (password_verify($password, $passwordCheck) && $verified == 1) {
+		header("Location: ../mainpage.php");
+		exit();
+	}
+	
+    if (!password_verify($password, $passwordCheck)) {
+        $_SESSION["error"] = "Invalid password";
+		header("Location: ../badIndexLogin.php");
+		exit();
+    }
+	
 	$conn->close();
 ?>

@@ -38,11 +38,8 @@
 		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a href="indexLogin.php"  class="nav-link">Login</a>
+					<a href="indexLogin.php"  class="nav-link">Logout</a>
 				</li>
-				<li class="nav-item">
-					<a href='indexRegister.php' class='nav-link'>Register</a>
-				</li>		
 			</ul>
 		</div>
 	</nav>

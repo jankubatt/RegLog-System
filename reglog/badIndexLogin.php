@@ -31,7 +31,7 @@
 			</div>
 		</nav>
 
-		<div class="text-danger container-fluid">Invalid details</div>
+		<div class="text-danger container-fluid"><?php echo $_SESSION["error"]; ?></div>
 		
 		<form action="script/login.php" method="POST">
 			<div class="container-fluid">
