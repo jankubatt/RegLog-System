@@ -1,10 +1,6 @@
 <?php
 	session_start();
-	$servername = "";
-	$dbUsername = "";
-	$dbPassword = "";
-	$dbname = "";
-	$conn = mysqli_connect($servername, $dbUsername, $dbPassword, $dbname);
+	include_once 'script/conn.php';
 	$user = $_SESSION["usr"];
 	$sqlSelect = "SELECT email FROM users WHERE username = '$user'";
 
@@ -28,6 +24,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<link rel="icon" href="css/img/favicon.ico">
 </head>
 <body class="container-fluid">
 	<nav class="navbar navbar-expand-md navbar-light">		

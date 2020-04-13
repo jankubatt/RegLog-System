@@ -1,50 +1,36 @@
 <?php
-	session_start();
-	$servername = "";
-	$dbUsername = "";
-	$dbPassword = "";
-	$dbname = "";
+	session_start();    //Start session
+	include_once 'conn.php'; //connect to DB
 
-	$username = $_POST['usernameLogin'];
-	$password = $_POST['pwdLogin'];
-	$passwordCheck = "";
-
-	$_SESSION["usr"] = $username;
-    $verified = 0;
-    
-    
-	// Create connection
-	$conn = mysqli_connect($servername, $dbUsername, $dbPassword, $dbname);
-
-	// Check connection
-	if ($conn->connect_error) {
-	    die("Connection failed: " . $conn->connect_error);
-	}
-
-	setcookie("user");
+	$username = $_POST['usernameLogin'];    //username input box
+	$password = $_POST['pwdLogin']; //password input box
+	$passwordCheck = "";    //variable for checking password, will fill it later 
+	$verified = 0;  //default verified value
+	$_SESSION["usr"] = $username;   //session usr is username here
 	
-	$sql = "SELECT pwd FROM users WHERE username = '$username'";
-	
-	$result = mysqli_query($conn, $sql);
-	$resultCheck = mysqli_num_rows($result);
-
+	$sql = "SELECT pwd FROM users WHERE username = '$username'";    //go to db and select pwd from users table where username in the table is equal to username here
+	$result = mysqli_query($conn, $sql);    //query
+	$resultCheck = mysqli_num_rows($result);    //check the result
+    
+    //store pwd from db to passwordCheck variable
 	if($resultCheck > 0) {
 		while ($row = mysqli_fetch_assoc($result)) {
 			$passwordCheck = $row['pwd'];
 		}
 	}
     
-    $sql = "SELECT verified FROM users WHERE username = '$username'";
-	
-	$result = mysqli_query($conn, $sql);
-	$resultCheck = mysqli_num_rows($result);
-
+    $sql = "SELECT verified FROM users WHERE username = '$username'";   //select verified from table users where username is equal to username here
+	$result = mysqli_query($conn, $sql);    //query
+	$resultCheck = mysqli_num_rows($result);    //check result
+    
+    //store verified value from db to verified variable
 	if($resultCheck > 0) {
 		while ($row = mysqli_fetch_assoc($result)) {
 			$verified = $row['verified'];
 		}
 	}
     
+    //input check
     if ($username == "" && $password == "") {
 	    $_SESSION["error"] = "Invalid username and password";
 		header("Location: ../badIndexLogin.php");
@@ -80,5 +66,6 @@
 		exit();
     }
 	
+	//close connection
 	$conn->close();
 ?>
